@@ -1,17 +1,7 @@
 <template>
 <div id="app" v-if="weather.main" :class=" 
    weatherBackGround(weather.weather[0].main)">
-   <header >
-    <p class="date">{{dateBuilder()}}</p>
-     <div class="search-box">
-      <i class="fas fa-search"  />
-       <input type="text" 
-       class="search-bar" 
-       placeholder="Search city weather" 
-       v-model="searchCity"
-       @keypress="getWeather"/>
-     </div>
-   </header>
+  <Header  />
   <main >
      <div class="weather-wrap" >
        <h1 class="location">{{weather.name}}</h1>
@@ -19,8 +9,8 @@
        <p class="temp">{{Math.round(weather.main.temp)}}°C</p>
        <img :src="getImgUrl(weather.weather[0].main.toLowerCase())">
        <div class="temp-box">
-         <p>min:{{Math.round(weather.main.temp_min)}}°C</p>
-          <p>max:{{Math.round(weather.main.temp_max)}}°C</p>
+         <p>min: {{Math.round(weather.main.temp_min)}}°C</p>
+          <p>max: {{Math.round(weather.main.temp_max)}}°C</p>
        </div>
        <div class="row-box">
        <div class="feel-like-box">
@@ -41,14 +31,18 @@
 
 <script>
 import axios from "axios";
+import Header from './components/header'
 export default {
   name: 'App',
+  components:{
+    Header
+  },
    data() {
      return {
        api_key:'ff1f8b66d99f2c221671c3bedc1212a7',
        url_base:'http://api.openweathermap.org/data/2.5/',
-       searchCity:undefined,
        myCity:'Barcelona',
+       searchCity:undefined,
        weather:{}
      }
    },
@@ -59,27 +53,13 @@ export default {
    },
 
    methods:{
-     getWeather: async function (e){
-       if(e.key === 'Enter'){ 
+
+         getWeather: async function (){
        const { data } = await axios.get(`${this.url_base}weather?q=${this.searchCity}&appid=${this.api_key}&units=metric`)
        this.searchCity='';
-       this.weather = data;
-       console.log(data);
-       }
+       this.weather = data;     
      },
-
-     dateBuilder(){
-      const dateNow = new Date();
-      const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-      const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-      const day = days[dateNow.getDay()];
-      const date = dateNow.getDate();
-      const month = months[dateNow.getMonth()];
-      const year = dateNow.getFullYear();
-      return `${day} ${date} ${month} ${year}`;   
-     },
-
-
+  
 getImgUrl(icon){
    return require("./assets/images/"+icon+".png");
 },

@@ -6,8 +6,8 @@
        <input type="text" 
        class="search-bar" 
        placeholder="Search city weather" 
-       v-model="searchCity"
-       @keypress="getWeather"/>
+       v-model="this.$parent.searchCity"
+       v-on:keyup.enter="getWeather"/>
      </div>
    </header>
 </template>
@@ -16,12 +16,20 @@
   export default {
     name: 'Header',
     methods: {
-      dateBuilder() {
-        this.$parent.dateBuilder();
-      },
-      getWeather(){
-         this.$parent.getWeather();
-      }
+        dateBuilder(){
+      const dateNow = new Date();
+      const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+      const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+      const day = days[dateNow.getDay()];
+      const date = dateNow.getDate();
+      const month = months[dateNow.getMonth()];
+      const year = dateNow.getFullYear();
+      return `${day} ${date} ${month} ${year}`;   
+      
+     },
+         getWeather(){
+    this.$parent.getWeather()
+     }
     }
   }
 </script>
