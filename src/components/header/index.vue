@@ -33,3 +33,35 @@
     }
   }
 </script>
+
+<style >
+  header{
+  padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+   .search-box{
+      width: 200px;
+      height: 30px;
+    display: flex;
+    flex-direction: row;
+    background-color: rgb(255,255,255,0.5);
+    transition: 0.4s;
+    border-radius: 5px;
+
+  }
+
+  .search-bar{
+    border: none;
+    outline: none;
+    background: none;  
+    }
+
+    .fa-search{
+        color: rgb(255,255,255,0.75);
+        padding: 6px;
+    }
+  
+</style>
