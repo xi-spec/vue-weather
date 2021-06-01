@@ -4,7 +4,7 @@ weather.weather[0].main.toLowerCase()">
   <Header  />
   <main >
      <div class="weather-wrap" >
-       <h1 class="location">{{weather.name}}</h1>
+       <h1 class="location">{{`${weather.name} ${weather.sys.country}`}}</h1>
        <p class="weather">{{titleCase(weather.weather[0].description)}}</p>
        <p class="temp">{{Math.round(weather.main.temp)}}°C</p>
        <img :src="getImgUrl(weather.weather[0].main.toLowerCase())">
